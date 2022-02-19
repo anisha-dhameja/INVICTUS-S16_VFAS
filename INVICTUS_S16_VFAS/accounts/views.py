@@ -1,40 +1,54 @@
-from re import template
-from django.shortcuts import render
-from accounts import models
-from django.contrib import messages
+from django.shortcuts import redirect, render
+from django.contrib.auth import models
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 
 
 def register(request):
     template_name = "accounts/register.html"
+    if request.user.is_authenticated:
+        return redirect("events:dashboard")
+
     if request.method == "POST":
-        email = request.POST["email"]
+        username = request.POST["email"]
         password = request.POST["password"]
-        user = models.User.objects.get(email)
-        if user is not None:
-            # already exists
-            messages.error(request, 'Account already exists')
-            pass
-        else:
-            u = models.User()
-            u.email = email
-            u.set_password(password)
-            u.save()
-            messages.success(request, 'Account created successfully!')
-            return render(request, 'account/dashboard.html')
+        context = {}
+        try:
+            user = models.User.objects.get(username=username)
+            context["message"] = "Account already exists"
+            context["type"] = "danger"
+        except:
+            if username[-10:] != "@ves.ac.in":
+                context["message"] = "Not a ves email id!"
+                context["type"] = "warning"
+            else:
+                user = models.User(username=username)
+                user.set_password(password)
+                user.save()
+                auth_login(request, user)
+
+                return redirect("events:dashboard")
+        return render(request, template_name, context)
+
     return render(request, template_name)
 
 
 def login(request):
     template_name = "accounts/login.html"
+    if request.user.is_authenticated:
+        return redirect("events:dashboard")
+    context = {}
     if request.method == "POST":
-        email = request.POST['email']
-        password = request.POST['password']
-        user = models.User.objects.get(email)
-        if user is not None:
-            if user.check_password(password):
-                return render(request, 'accounts/dashboard.html')
-            else:
-                messages.error(request, 'Invalid credentials!')
-        else:
-            messages.error(request, 'Invalid credentials!')
-    return render(request, template_name)
+        user = authenticate(
+            request, username=request.POST["email"], password=request.POST["password"]
+        )
+        if user:
+            auth_login(request, user)
+            return redirect("events:dashboard")
+        context["message"] = "Invalid Crediantials"
+        context["type"] = "danger"
+    return render(request, template_name, context)
+
+
+def logout(request):
+    auth_logout(request)
+    return redirect("accounts:login")
