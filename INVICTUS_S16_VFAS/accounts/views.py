@@ -21,7 +21,7 @@ def register(request):
                 context["message"] = "Not a ves email id!"
                 context["type"] = "warning"
             else:
-                user = models.User(username=username)
+                user = models.User(username=username, email=username)
                 user.set_password(password)
                 user.save()
                 auth_login(request, user)

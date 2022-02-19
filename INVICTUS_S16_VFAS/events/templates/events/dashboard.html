@@ -1,0 +1,33 @@
+{% extends 'events/navbar.html' %} {% load static %} 
+
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        {% for i in lst %}
+        <div class="col mb-4">
+            <div class="card" style="width: 18rem">
+                <img
+                    src="{% static 'events/images/poster_1.png' %}"
+                    class="card-img-top"
+                    alt="..."
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Article Writing</h5>
+                    <p class="card-text">
+                        <h6>Start Date: 01/10/2021</h6> 
+                        <h6>End Date: 01/10/2021</h6> 
+                    </p>
+                    <a href="{% url 'events:details' %} " class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
