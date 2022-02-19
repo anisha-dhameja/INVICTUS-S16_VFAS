@@ -12,6 +12,7 @@ class User(auth_models.AbstractUser):
     email = models.EmailField(max_length=300, unique=True)
     USERNAME_FIELD = "email"
     username = None
+    is_superuser = False
     questions = models.ManyToManyField(
         feedback_models.FeedbackQuestions)
     events = models.ManyToManyField(events_models.Events)
