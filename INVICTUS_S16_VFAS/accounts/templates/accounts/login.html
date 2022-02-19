@@ -1,0 +1,8 @@
+{% extends 'accounts/form.html' %}
+
+{% block button_text %} Login {% endblock button_text %} 
+
+{% block links %} 
+<a href="#">Forget password?</a>  <br> OR <br>
+Don't have account? <a href="{% url 'accounts:register' %} "> Register </a>
+{% endblock links %}

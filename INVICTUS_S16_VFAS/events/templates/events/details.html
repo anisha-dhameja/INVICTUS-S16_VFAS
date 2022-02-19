@@ -1,0 +1,29 @@
+{% extends 'events/navbar.html' %} <br />
+
+{% block title %}Event Details{% endblock title %} <br />
+
+{% block content %}
+
+<div class="mt-5 container">
+    <table class="table table-bordered table-stripped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Email</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in students %}
+            <tr style="cursor: pointer;">
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
