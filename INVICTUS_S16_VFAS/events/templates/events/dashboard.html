@@ -9,21 +9,19 @@ Dashboard
 {% block content %}
 <div class="container mt-5">
     <div class="row">
-        {% for i in lst %}
+        {% for event in events %}
         <div class="col mb-4">
-            <div class="card" style="width: 18rem">
-                <img
-                    src="{% static 'events/images/poster_1.png' %}"
-                    class="card-img-top"
-                    alt="..."
-                />
+            <div class="card border border-dark" style="width: 20rem">
+                <img src="/media/{{event.upload_image}}"  height="250px">
                 <div class="card-body">
-                    <h5 class="card-title">Article Writing</h5>
+                    <h5 class="card-title">{{event.event_name}}</h5>
                     <p class="card-text">
-                        <h6>Start Date: 01/10/2021</h6> 
-                        <h6>End Date: 01/10/2021</h6> 
+                        <h6>Start Date: {{event.start_date}}</h6> 
+                        <h6>End Date: {{event.end_date}}</h6> 
                     </p>
-                    <a href="{% url 'events:details' %} " class="btn btn-primary">Details</a>
+                   
+                    <a href="{% url 'events:details' event.slug %} " class="btn btn-primary">{{details}}</a>
+                   
                 </div>
             </div>
         </div>

@@ -5,22 +5,25 @@
 {% block content %}
 
 <div class="mt-5 container">
+    <p></p>
     <table class="table table-bordered table-stripped table-hover">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Id</th>
                 <th scope="col">Email</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Year</th>
+                <th scope="col">Division</th>
             </tr>
         </thead>
         <tbody>
-            {% for i in students %}
+            {% for student in students %}
             <tr style="cursor: pointer;">
                 <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>{{student.id}}</td>
+                <td>{{student.email}}</td>
+                <td>{{student.year}}</td>
+                <td>{{student.division}}</td>
+
             </tr>
             {% endfor %}
         </tbody>

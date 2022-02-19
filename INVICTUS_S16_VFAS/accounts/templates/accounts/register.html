@@ -1,5 +1,27 @@
-{% extends 'accounts/form.html' %} 
+{% extends 'accounts/form.html' %}
+{% block detail %}
+<div class="mb-3">
+    <label for="year">Select Year</label>
+    <select name="year">
+       
+        <option value="first">First</option>
+        <option value="second">Second</option>
+        <option value="third">Third</option>
+        <option value="fourth">Four</option>
+     
+    </select>
+</div>
+<div class="mb-3">
+    <label for="division">Select Division</label>
+    <input type="text" id="division"  class="form-control" name="division" placeholder="Division" required>
+</div>
+
+
+
+
+{% endblock detail %} 
 {% block button_text %} Register 
+
 {% endblock button_text %} {% block links %}
 Already have account? <a href="{% url 'accounts:login' %} ">Login</a>
 {% endblock links %}

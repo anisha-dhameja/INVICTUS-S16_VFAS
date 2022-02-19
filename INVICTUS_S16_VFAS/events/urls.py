@@ -4,5 +4,6 @@ app_name = "events"
 
 urlpatterns = [
     path('dashboard/', views.dashboard, name="dashboard"),
-    path('details/', views.details, name="details"),
+    path('details/<str:slug>', views.details, name="details"),
 ]
+ 

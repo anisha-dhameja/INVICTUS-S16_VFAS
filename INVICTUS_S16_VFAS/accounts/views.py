@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from django.contrib.auth import models
+from accounts import models
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 
 
@@ -11,6 +11,8 @@ def register(request):
     if request.method == "POST":
         username = request.POST["email"]
         password = request.POST["password"]
+        year = request.POST["year"]
+        division = request.POST["division"]
         context = {}
         try:
             user = models.User.objects.get(username=username)
@@ -21,7 +23,7 @@ def register(request):
                 context["message"] = "Not a ves email id!"
                 context["type"] = "warning"
             else:
-                user = models.User(username=username, email=username)
+                user = models.User(username=username, email=username, year=year, division=division)
                 user.set_password(password)
                 user.save()
                 auth_login(request, user)
@@ -44,7 +46,7 @@ def login(request):
         if user:
             auth_login(request, user)
             return redirect("events:dashboard")
-        context["message"] = "Invalid Crediantials"
+        context["message"] = "Invalid Credentials"
         context["type"] = "danger"
     return render(request, template_name, context)
 

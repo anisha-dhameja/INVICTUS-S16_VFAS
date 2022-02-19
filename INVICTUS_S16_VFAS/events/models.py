@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
-from django.contrib.auth.models import User
+from accounts import models as auth_models
+
 
 
 class Event(models.Model):
@@ -13,8 +14,8 @@ class Event(models.Model):
     second_year = models.BooleanField()
     third_year = models.BooleanField()
     fourth_year = models.BooleanField()
-    upload_image = models.ImageField(upload_to="uploads/")
-    users = models.ManyToManyField(User)
+    upload_image = models.ImageField(upload_to='events/images', default="")
+    users = models.ManyToManyField(auth_models.User)
 
     def save(self, *args, **kwargs):
         value = slugify(self.event_name)
