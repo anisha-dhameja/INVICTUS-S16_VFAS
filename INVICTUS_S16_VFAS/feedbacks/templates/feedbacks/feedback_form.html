@@ -1,0 +1,44 @@
+{% extends 'events/navbar.html' %} {% block title %} Feedback Form 
+{% endblock title %} {% block content %}
+
+<div class="container mt-5">
+    <form method="POST">
+        {% csrf_token %} {% for i in number_of_questions %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+                >Question {{i}}</label
+            >
+            <input
+                type="text"
+                class="form-control"
+                name="question-{{i}}"
+                placeholder="Question {{i}}"
+                required
+            />
+        </div>
+        {% endfor %}
+        <input
+            type="number"
+            name="number_of_questions"
+            id="number_of_questions"
+            style="display: none"
+        />
+        <button class="btn btn-primary" type="submit" name="create-quesitons">
+            Create
+        </button>
+        <button
+            class="btn btn-success"
+            style="border-radius: 50px"
+            type="submit"
+            name="add-question"
+        >
+            <i class="fa fa-plus"></i>
+        </button>
+    </form>
+    <script type="text/javascript">
+        document
+            .getElementById("number_of_questions")
+            .setAttribute("value", 1);
+    </script>
+</div>
+{% endblock content %}

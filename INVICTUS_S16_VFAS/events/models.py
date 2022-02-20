@@ -3,7 +3,6 @@ from django.utils.text import slugify
 from accounts import models as auth_models
 
 
-
 class Event(models.Model):
     slug = models.SlugField(default="", editable=False, max_length=500, unique=True)
     event_name = models.CharField(max_length=256)
@@ -14,7 +13,7 @@ class Event(models.Model):
     second_year = models.BooleanField()
     third_year = models.BooleanField()
     fourth_year = models.BooleanField()
-    upload_image = models.ImageField(upload_to='events/images', default="")
+    upload_image = models.ImageField(upload_to="events/images", default="")
     users = models.ManyToManyField(auth_models.User)
 
     def save(self, *args, **kwargs):

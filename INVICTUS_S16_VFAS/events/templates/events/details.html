@@ -3,9 +3,14 @@
 {% block title %}Event Details{% endblock title %} <br />
 
 {% block content %}
-
 <div class="mt-5 container">
-    <p></p>
+    <div class="row">
+        <span class="text-primary text-center h1 col-10">{{event.event_name}}</span>
+        <span class="col">
+            <a href="{% url 'feedbacks:feedback-form' event.slug %}" class="btn btn-success">Create Feedback Form</a>
+        </span>
+    </div>
+    <br />
     <table class="table table-bordered table-stripped table-hover">
         <thead>
             <tr>
@@ -16,14 +21,12 @@
             </tr>
         </thead>
         <tbody>
-            {% for student in students %}
-            <tr style="cursor: pointer;">
-                <th scope="row">1</th>
+            {% for student in event.users.all %}
+            <tr style="cursor: pointer">
                 <td>{{student.id}}</td>
                 <td>{{student.email}}</td>
                 <td>{{student.year}}</td>
                 <td>{{student.division}}</td>
-
             </tr>
             {% endfor %}
         </tbody>
